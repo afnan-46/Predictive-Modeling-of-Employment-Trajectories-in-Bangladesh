@@ -1,0 +1,28 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import ttest_ind, chi2_contingency
+from sklearn.model_selection import train_test_split, StratifiedKFold, GridSearchCV, cross_val_score
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, mean_squared_error, r2_score, confusion_matrix
+from sklearn.preprocessing import LabelEncoder
+import shap
+import warnings
+warnings.filterwarnings('ignore')
+#Cleaning and import
+df = pd.read_csv('bdJobsCSE303.csv')
+df = df.dropna(subset=['Age', 'Gender', 'Religion', 'Grouped Occupation', 'Occupation'])
+print("Data loaded and initial cleaning complete. Displaying first 5 rows:")
+display(df.head())
+#3. Exploratory Data Analysis (EDA)
+#This section visualizes various aspects of the dataset to understand distributions and relationships between key variables.
+
+plt.figure(figsize=(10,6))
+sns.countplot(y='Occupation', data=df, order=df['Occupation'].value_counts().index, palette='viridis')
+plt.title('Occupation Distribution (Higher to Lower)')
+plt.xlabel('Count')
+plt.ylabel('Occupation')
+plt.tight_layout()
+plt.show()
